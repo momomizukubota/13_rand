@@ -22,18 +22,11 @@ int main(int argc, char *argv[])
 		input[i++] = number;
 	}
 
-	/*
-	m	modulus		2147483647 (2^31 - 1)
-	a	multiplier	48271
-	c	increment	0
-	*/
-
 	unsigned int rand;
 	unsigned int dev = (unsigned int)(0x7FFFFFFF + input[MAX] - 1) / input[MAX];
 	for (rand = getRand(input[SEED]), i = 0; i < input[NUM]; rand = getRand(rand), i++)
 	{
-		unsigned int result = rand / dev + 1;
-		printf("%d\n", result);
+		printf("%d\n", rand / dev + 1);
 	}
 
 	return 0;
