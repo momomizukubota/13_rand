@@ -1,12 +1,40 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int main(int argc, char *argv[]) 
+#define SEED 0
+#define MAX 1
+#define NUM 2
+
+unsigned int getRand(unsigned int seed)
 {
-    char str[7];
-    
-    while(fgets(str, sizeof(str), stdin)){
-        printf("%s", str);
-    }
+	return (unsigned int)(48271 * seed % 2147483647);
+}
 
-    return 0;
+int main(int argc, char *argv[])
+{
+	char str[12];
+	int input[3];
+
+	int i = 0;
+	while (fgets(str, sizeof(str), stdin))
+	{
+		int number = atoi(str);
+		input[i++] = number;
+	}
+
+	/*
+	m	modulus		2147483647 (2^31 - 1)
+	a	multiplier	48271
+	c	increment	0
+	*/
+
+	unsigned int rand;
+	unsigned int dev = (unsigned int)(0x7FFFFFFF + input[MAX] - 1) / input[MAX];
+	for (rand = getRand(input[SEED]), i = 0; i < input[NUM]; rand = getRand(rand), i++)
+	{
+		unsigned int result = rand / dev + 1;
+		printf("%d\n", result);
+	}
+
+	return 0;
 }
